@@ -24,6 +24,9 @@ FLUSH PRIVILEGES;
 EOS
 "
 
+# Start Nginx
+lxc exec tonics-lemp -- bash -c "sudo nginx"
+
 # Clean Debian Cache
 lxc exec tonics-lemp -- bash -c "apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*"
 
