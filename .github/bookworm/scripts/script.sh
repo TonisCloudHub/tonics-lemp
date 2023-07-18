@@ -38,7 +38,7 @@ mkdir images && lxc stop tonics-lemp && lxc publish tonics-lemp --alias tonics-l
 
 # Export Image
 lxc start tonics-lemp
-lxc image export tonics-php images/$Version
+lxc image export tonics-lemp images/$Version
 
 # Image Info
 lxc image info tonics-lemp >> images/info.txt
