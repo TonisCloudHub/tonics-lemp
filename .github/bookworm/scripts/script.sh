@@ -3,13 +3,28 @@
 # Init incus
 sudo incus admin init --auto
 
+PHP_VERSION=$1
+
 # Launch Instance
 sudo incus launch images:debian/bookworm/amd64 tonics-lemp
 
 # Dependencies
 sudo incus exec tonics-lemp -- bash -c "apt update -y && apt upgrade -y"
 
-sudo incus exec tonics-lemp -- bash -c "DEBIAN_FRONTEND=noninteractive apt install -y mariadb-server nginx php php8.2-fpm php8.2-mysql php8.2-mbstring php8.2-readline php8.2-gd  php8.2-gmp php8.2-bcmath  php8.2-zip php8.2-curl php8.2-intl php8.2-apcu"
+if (( $(echo "$PHP_VERSION > 8.2" | bc -l) )); then
+
+  # Add Ondrej's repo source and signing key along with dependencies
+  sudo incus exec tonics-lemp -- bash -c "apt install -y curl apt-transport-https lsb-release"
+  sudo incus exec tonics-lemp -- bash -c  "curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg"
+  sudo incus exec tonics-lemp -- bash  <<HEREDOC
+  echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(sudo incus exec tonics-lemp -- lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
+HEREDOC
+
+  sudo incus exec tonics-lemp -- bash -c "apt update -y"
+
+fi
+
+sudo incus exec tonics-lemp -- bash -c "DEBIAN_FRONTEND=noninteractive apt install -y mariadb-server nginx php$PHP_VERSION php$PHP_VERSION-fpm php$PHP_VERSION-{mysql,mbstring,readline,gd,gmp,bcmath,zip,curl,intl,apcu}"
 
 # Setup MariaDB
 sudo incus exec tonics-lemp -- bash -c "mysql --user=root -sf <<EOS

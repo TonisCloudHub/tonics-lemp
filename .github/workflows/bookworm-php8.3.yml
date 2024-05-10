@@ -1,8 +1,8 @@
-name: LXD Lemp Image Build
+name: LXD Lemp Image Build PHP8.3
 on:
   push: 
     paths:
-    - '.github/workflows/bookworm.yml'
+    - '.github/workflows/bookworm-php8.3.yml'
   schedule:
   - cron: '0 0 * * *' # Once EveryDay  
 
@@ -16,7 +16,7 @@ jobs:
        
       - name: Install Lemp Stack
         run: |
-          bash .github/bookworm/scripts/script.sh
+          bash .github/bookworm/scripts/script.sh 8.3
 
       - name: Extract Tag Name
         id: extract_filename
