@@ -2,7 +2,7 @@ name: LXD Lemp Image Build PHP8.2
 on:
   push: 
     paths:
-    - '.github/workflows/bookworm-php8.2.yml'
+    - '.github/workflows/01.bookworm-php8.2-mariadb-10-11.yml'
   schedule:
   - cron: '0 0 * * *' # Once EveryDay  
 
@@ -16,7 +16,7 @@ jobs:
        
       - name: Install Lemp Stack
         run: |
-          bash .github/bookworm/scripts/script.sh 8.2
+          bash .github/bookworm/scripts/script.sh 8.2 mariadb-10.11
 
       - name: Extract Tag Name
         id: extract_filename
