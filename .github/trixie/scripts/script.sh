@@ -7,7 +7,7 @@ PHP_VERSION=$1
 mariaDBVersion=$2
 
 # Launch Instance
-sudo incus launch images:debian/bookworm/amd64 tonics-lemp
+sudo incus launch images:debian/trixie/amd64 tonics-lemp
 
 # Dependencies
 sudo incus exec tonics-lemp -- bash -c "apt update -y && apt upgrade -y && apt install -y curl apt-transport-https lsb-release"
