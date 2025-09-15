@@ -1,4 +1,4 @@
-name: LXD Lemp Image Build PHP8.3
+name: LXD Lemp Image Build PHP8.4
 on:
   push: 
     paths:
