@@ -2,7 +2,7 @@ name: LXD Lemp Image Build PHP8.3
 on:
   push: 
     paths:
-    - '.github/workflows/02.bookworm-php8.4-mariadb-11-8.yml'
+    - '.github/workflows/01.trixie-php8.4-mariadb-11-8.yml'
   schedule:
   - cron: '0 0 * * *' # Once EveryDay  
 
